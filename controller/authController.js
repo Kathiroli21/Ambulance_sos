@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
-import User from '../models/User.js';
+import User from '../models/userModel.js';
 import { generateToken } from '../utils/generateToken.js';
-import Patient from '../models/Patient.js';
-import Hospital from '../models/Hospital.js';
-import Driver from '../models/Driver.js';
+import Patient from '../models/patientModel.js';
+import Hospital from '../models/hospitalModel.js';
+import Driver from '../models/driverModel.js';
 
 export const registerUser = async (req, res) => {
   try {
