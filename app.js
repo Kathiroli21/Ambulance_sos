@@ -6,11 +6,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/mongoDbConfig.js';
-
-// import authRoutes from './routes/authRoutes.js';
-// import healthRoutes from './routes/healthRoutes.js';
-// import alertRoutes from './routes/alertRoutes.js';
-// import driverRoutes from './routes/driverRoutes.js';
+import loggerMiddleware from './Middlewares/loggerMiddleware.js';
 
 dotenv.config();
 
@@ -24,11 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
+app.use(loggerMiddleware);
 
-// app.use('/api/auth', authRoutes);
-// app.use('/api/health', healthRoutes);
-// app.use('/api/alerts', alertRoutes);
-// app.use('/api/drivers', driverRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
