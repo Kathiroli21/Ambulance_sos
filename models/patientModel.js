@@ -1,15 +1,49 @@
 import mongoose from 'mongoose';
+
 const patientSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-  location: {
-    latitude: Number,
-    longitude: Number
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  healthData: {
-    heartRate: Number,
-    spo2: Number,
-    bp: String
+  medicalHistory: {
+    type: String,
+    default: ''
+  },
+  currentMedications: {
+    type: String,
+    default: ''
+  },
+  emergencyContacts: [{
+    name: String,
+    phone: String,
+    relationship: String
+  }],
+  smartWatchDeviceId: {
+    type: String,
+    unique: true
+  },
+  thresholdSettings: {
+    heartRate: {
+      min: { type: Number, default: 60 },
+      max: { type: Number, default: 100 }
+    },
+    spo2: {
+      min: { type: Number, default: 95 }
+    },
+    bloodPressure: {
+      systolic: {
+        min: { type: Number, default: 90 },
+        max: { type: Number, default: 120 }
+      },
+      diastolic: {
+        min: { type: Number, default: 60 },
+        max: { type: Number, default: 80 }
+      }
+    }
   }
 }, { timestamps: true });
-export default mongoose.model('Patient', patientSchema);
+
+const Patient = mongoose.model('Patient', patientSchema);
+
+export default Patient;
