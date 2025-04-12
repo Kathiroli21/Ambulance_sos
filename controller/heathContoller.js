@@ -41,8 +41,7 @@ export const processVitals = async (req, res) => {
         hospitals,
         drivers
       });
-      
-      
+         
       return res.status(200).json({ 
         message: 'Alert created', 
         alert,
