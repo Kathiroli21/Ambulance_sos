@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/mongoDbConfig.js';
 import loggerMiddleware from './Middlewares/loggerMiddleware.js';
+import { routing } from "./routes.js";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
 app.use(loggerMiddleware);
-
+routing(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));

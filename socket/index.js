@@ -13,6 +13,11 @@ export const initSocket = (server) => {
   io.on('connection', (socket) => {
     console.log('New client connected');
     
+    socket.on('joinAlertRoom', (alertId) => {
+      socket.join(alertId);
+      console.log(`Client joined alert room ${alertId}`);
+    });
+    
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });

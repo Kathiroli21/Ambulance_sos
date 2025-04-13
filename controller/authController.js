@@ -120,7 +120,7 @@ export const updateProfile = async (req, res) => {
         { user: user._id },
         req.body.driverData || {},
         { new: true }
-      ).populate('user');
+      ).populate('user')
     }
     
     res.status(200).json(profile);

@@ -51,7 +51,47 @@ const alertSchema = new mongoose.Schema({
     enum: ['low', 'medium', 'high', 'critical'],
     required: true
   },
-  notes: String
+  notes: String,
+  tracking: {
+    updates: [{
+      location: {
+        type: {
+          type: String,
+          enum: ['Point'],
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      },
+      status: {
+        type: String,
+        enum: ['enroute', 'arrived', 'transporting', 'completed'],
+        required: true
+      },
+      estimatedArrival: Number,
+      distance: Number
+    }],
+    route: {
+      type: [{
+        type: {
+          type: String,
+          enum: ['Point'],
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
+      }],
+      default: []
+    }
+  }
 }, { timestamps: true });
 
 alertSchema.index({ location: '2dsphere' });

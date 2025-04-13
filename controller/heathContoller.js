@@ -3,12 +3,13 @@ import Alert from '../models/alertModel.js';
 import { checkVitalThresholds, determineSeverity } from '../utils/thresholds.js';
 import { findNearbyHospitals, findNearbyDrivers } from '../utils/geoUtils.js';
 import User from '../models/userModel.js';
-import { io } from '../socket/index.js';
+import { getIO } from '../socket/index.js';
 
 export const processVitals = async (req, res) => {
   try {
     const { deviceId, vitals, location } = req.body;
-    
+    const io = getIO();
+
     const patient = await Patient.findOne({ smartWatchDeviceId: deviceId }).populate('user');
     if (!patient) {
       return res.status(404).json({ message: 'Patient not found' });
